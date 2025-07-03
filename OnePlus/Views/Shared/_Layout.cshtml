@@ -1,32 +1,27 @@
-﻿<!DOCTYPE html>
+﻿@inject IHttpContextAccessor HttpContextAccessor
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - OnePlus</title>
 
-    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-
-    <!-- Font Awesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
-    <!-- New Custom Layout Stylesheet -->
     <link rel="stylesheet" href="~/css/Layout/Style.css" asp-append-version="true" />
 
-    <!-- This section will render styles from specific pages, like Login.cshtml -->
     @await RenderSectionAsync("Styles", required: false)
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-lg navbar-light bg-white">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">OnePlus</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">One<span class="brand-plus">Plus</span></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
-                    <!-- Centered Nav Links -->
                     <ul class="navbar-nav mx-auto">
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
@@ -38,15 +33,28 @@
                             <a class="nav-link" asp-area="" asp-controller="Home" asp-action="About">About</a>
                         </li>
                     </ul>
-                    <!-- Right-aligned Profile Dropdown -->
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item dropdown profile-dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="fas fa-user-circle profile-icon"></i>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" asp-controller="Uam" asp-action="Login">Sign In</a></li>
-                                <!-- Add other links like 'My Profile', 'Logout', etc. here later -->
+                                @if (HttpContextAccessor.HttpContext.Session.GetString("UserId") != null)
+                                {
+                                    // --- USER IS LOGGED IN ---
+                                    <li><a class="dropdown-item" asp-controller="Uam" asp-action="Profile">My Profile</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li>
+                                        <form asp-controller="Uam" asp-action="Logout" method="post">
+                                            <button type="submit" class="dropdown-item">Logout</button>
+                                        </form>
+                                    </li>
+                                }
+                                else
+                                {
+                                    // --- USER IS NOT LOGGED IN ---
+                                    <li><a class="dropdown-item" asp-controller="Uam" asp-action="Login">Sign In</a></li>
+                                }
                             </ul>
                         </li>
                     </ul>
@@ -55,7 +63,6 @@
         </nav>
     </header>
 
-    <!-- The main-content class removes default padding -->
     <div class="container-fluid main-content">
         <main role="main">
             @RenderBody()
@@ -66,7 +73,6 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
 
-    <!-- This section will render scripts from specific pages -->
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

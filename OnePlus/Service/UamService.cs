@@ -1,10 +1,10 @@
-﻿using YourProject.Data;
-using YourProject.Models;
+﻿using OnePlus.Data;
+using OnePlus.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using BCrypt.Net;
 
-namespace YourProject.Services
+namespace OnePlus.Services
 {
     public class UamService : IUamService
     {
@@ -51,6 +51,11 @@ namespace YourProject.Services
         public async Task<bool> UserExistsAsync(string email)
         {
             return await _context.Users.AnyAsync(u => u.Email == email);
+        }
+
+        public async Task<User> GetUserByIdAsync(int userId)
+        {
+            return await _context.Users.FindAsync(userId);
         }
     }
 }

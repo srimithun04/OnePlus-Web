@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using YourProject.Models; // Make sure this using statement is correct
+using OnePlus.Models; // Make sure this using statement is correct
 
-namespace YourProject.Data
+namespace OnePlus.Data
 {
     public class AppDbContext : DbContext
     {

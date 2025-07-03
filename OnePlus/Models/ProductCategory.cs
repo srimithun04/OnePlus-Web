@@ -1,6 +1,6 @@
 ﻿
 // --- ProductCategory.cs ---
-namespace YourProject.Models
+namespace OnePlus.Models
 {
     public class ProductCategory
     {

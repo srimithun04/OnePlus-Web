@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
-using YourProject.Data;
-using YourProject.Services; // Add this using statement for your services
+using OnePlus.Data;
+using OnePlus.Services; // Add this using statement for your services
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -49,7 +49,7 @@ app.UseAuthorization();
 // This route correctly sets the UamController's Login action as the default page
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Uam}/{action=Login}/{id?}");
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
 

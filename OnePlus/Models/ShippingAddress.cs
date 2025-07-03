@@ -3,7 +3,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace YourProject.Models
+namespace OnePlus.Models
 {
     public class ShippingAddress
     {

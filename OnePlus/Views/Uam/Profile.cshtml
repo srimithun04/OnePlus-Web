@@ -1,0 +1,35 @@
+﻿@model OnePlus.Models.User
+
+@{
+    ViewData["Title"] = "My Profile";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/Uam/Profile.css" />
+}
+
+<div class="profile-container">
+    <div class="profile-card">
+        <div class="profile-header">
+            <h2>User Profile</h2>
+        </div>
+        <div class="profile-details">
+            <div class="detail-item">
+                <span class="label">First Name:</span>
+                <span class="value">@Model.FirstName</span>
+            </div>
+            <div class="detail-item">
+                <span class="label">Last Name:</span>
+                <span class="value">@Model.LastName</span>
+            </div>
+            <div class="detail-item">
+                <span class="label">Email:</span>
+                <span class="value">@Model.Email</span>
+            </div>
+            <div class="detail-item">
+                <span class="label">Phone Number:</span>
+                <span class="value">@(Model.PhoneNumber ?? "Not Provided")</span>
+            </div>
+        </div>
+    </div>
+</div>

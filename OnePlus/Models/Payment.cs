@@ -5,7 +5,7 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace YourProject.Models
+namespace OnePlus.Models
 {
     public enum PaymentStatus { Pending, Completed, Failed, Refunded }
 

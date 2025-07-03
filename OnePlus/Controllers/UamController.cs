@@ -1,9 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using YourProject.Models;
-using YourProject.Services;
+using OnePlus.Auth;
 using System.Threading.Tasks;
+using OnePlus.Models;
+using OnePlus.Services;
 
-namespace YourProject.Controllers
+namespace OnePlus.Controllers
 {
     public class UamController : Controller
     {
@@ -13,6 +14,35 @@ namespace YourProject.Controllers
         {
             _uamService = uamService;
         }
+
+        // --- NEW PROFILE ACTION ---
+        [HttpGet]
+        [AuthorizeRole(UserRole.Admin, UserRole.Client)]
+        public async Task<IActionResult> Profile()
+        {
+            // Check if the UserId is present in the session
+            var userIdString = HttpContext.Session.GetString("UserId");
+            if (string.IsNullOrEmpty(userIdString))
+            {
+                // If not logged in, redirect to the login page
+                return RedirectToAction("Login");
+            }
+
+            if (int.TryParse(userIdString, out int userId))
+            {
+                // Fetch the user from the database using the new service method
+                var user = await _uamService.GetUserByIdAsync(userId);
+                if (user != null)
+                {
+                    // If user is found, pass the user object to the view
+                    return View(user);
+                }
+            }
+
+            // If user is not found or ID is invalid, redirect to login
+            return RedirectToAction("Login");
+        }
+
 
         // --- LOGIN ACTIONS ---
         [HttpGet]
@@ -50,10 +80,8 @@ namespace YourProject.Controllers
 
         // --- SIGNUP ACTIONS ---
         [HttpGet]
-        [HttpGet]
         public IActionResult Signup()
         {
-            // Redirect to the login page, which now contains the signup form
             return RedirectToAction("Login");
         }
 
@@ -61,11 +89,10 @@ namespace YourProject.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Signup(string firstName, string lastName, string email, string password, string confirmPassword)
         {
-            // Manual validation
             if (password != confirmPassword)
             {
                 ModelState.AddModelError(string.Empty, "The password and confirmation password do not match.");
-                return View();
+                return View("Login");
             }
 
             var success = await _uamService.SignupAsync(firstName, lastName, email, password);
@@ -77,7 +104,7 @@ namespace YourProject.Controllers
             }
 
             ModelState.AddModelError(string.Empty, "An account with this email already exists.");
-            return View();
+            return View("Login");
         }
 
         // --- LOGOUT ACTION ---

@@ -16,6 +16,11 @@ body {
     color: #1B1717 !important;
 }
 
+    /* --- NEW RULE FOR THE BRAND COLOR --- */
+    .navbar-brand .brand-plus {
+        color: #810100; /* Primary Red */
+    }
+
 .navbar-nav .nav-link {
     color: #555 !important;
     font-weight: 500;

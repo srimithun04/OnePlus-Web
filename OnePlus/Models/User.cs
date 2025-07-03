@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace YourProject.Models
+namespace OnePlus.Models
 {
     public enum UserRole { Admin, Client }
 
