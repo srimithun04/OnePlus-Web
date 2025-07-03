@@ -50,9 +50,11 @@ namespace YourProject.Controllers
 
         // --- SIGNUP ACTIONS ---
         [HttpGet]
+        [HttpGet]
         public IActionResult Signup()
         {
-            return View();
+            // Redirect to the login page, which now contains the signup form
+            return RedirectToAction("Login");
         }
 
         [HttpPost]

@@ -1,0 +1,186 @@
+﻿/* Import a font for a modern look */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+:root {
+    --main-bg: #FFFFFF;
+    --primary-red: #810100;
+    --dark-text: #1B1717;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    overflow: hidden; /* Prevent scrollbars */
+}
+
+/* The main full-screen container */
+.auth-container {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    opacity: 0;
+    animation: fadeIn 1s forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* Panel for the image */
+.image-panel {
+    width: 50%;
+    height: 100%;
+    background: url('/images/uam-bg.jpg') no-repeat center center;
+    background-size: cover;
+}
+
+/* Panel that holds the forms */
+.form-panel {
+    width: 50%;
+    height: 100%;
+    position: relative;
+    overflow: hidden; /* This is key to the sliding effect */
+    background-color: var(--main-bg);
+}
+
+.form-wrapper {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* The transition is now only on the transform property */
+    transition: transform 0.7s ease-in-out;
+}
+
+.login-form {
+    transform: translateX(0%);
+}
+
+.signup-form {
+    /* Starts off-screen to the right */
+    transform: translateX(100%);
+}
+
+form {
+    width: 70%;
+    max-width: 400px;
+    text-align: center;
+}
+
+h2 {
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    color: var(--dark-text);
+}
+
+.form-group {
+    width: 100%;
+    margin-bottom: 1rem;
+    text-align: left;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    background-color: #f0f0f0;
+    border: 1px solid #ddd;
+    padding: 12px 15px;
+    width: 100%;
+    border-radius: 8px;
+    color: var(--dark-text);
+    outline: none;
+    transition: border-color 0.2s;
+    box-sizing: border-box;
+}
+
+input:focus {
+    border-color: var(--primary-red);
+}
+
+.btn-primary {
+    border-radius: 20px;
+    border: none;
+    background-color: var(--primary-red);
+    color: #FFFFFF;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 12px 45px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: transform 80ms ease-in, background-color 0.2s;
+    cursor: pointer;
+    width: 100%;
+}
+
+    .btn-primary:hover {
+        background-color: var(--dark-text);
+    }
+
+    .btn-primary:active {
+        transform: scale(0.95);
+    }
+
+.text-danger {
+    color: var(--primary-red);
+    font-size: 0.8rem;
+    text-align: center;
+    min-height: 20px;
+}
+
+/* Toggle buttons container, fixed to the top right */
+.toggle-buttons {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+
+.toggle-btn {
+    background-color: var(--dark-text);
+    color: #FFFFFF;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+    .toggle-btn:hover {
+        transform: scale(1.05);
+    }
+
+#signInBtn {
+    display: none; /* Initially hidden */
+}
+
+/* --- CORRECTED ANIMATION LOGIC --- */
+
+/* When signup is active, slide the login form to the left */
+.auth-container.signup-active .login-form {
+    transform: translateX(-100%);
+}
+
+/* And slide the signup form in from the right to take its place */
+.auth-container.signup-active .signup-form {
+    transform: translateX(0%);
+}
+
+/* Logic to show/hide the correct toggle button */
+.auth-container.signup-active #signUpBtn {
+    display: none;
+}
+
+.auth-container.signup-active #signInBtn {
+    display: inline-block;
+}
