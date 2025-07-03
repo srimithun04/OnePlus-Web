@@ -5,7 +5,7 @@
 
     if (signUpButton && formContainer) {
         signUpButton.addEventListener('click', (e) => {
-            e.preventDefault(); // Prevent form submission if it's inside a form
+            e.preventDefault();
             formContainer.classList.add('left-panel-active');
         });
     }

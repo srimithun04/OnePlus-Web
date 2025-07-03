@@ -10,9 +10,8 @@
 body {
     font-family: 'Poppins', sans-serif;
     margin: 0;
-    overflow: hidden; /* Prevent scrollbars */
-    height: 100vh; /* THIS LINE FIXES THE IMAGE FITTING */
-    /* The static background image for the entire page */
+    overflow: hidden;
+    height: 100vh;
     background: url('/images/uam-bg.jpg') no-repeat center center;
     background-size: cover;
 }
@@ -20,10 +19,12 @@ body {
 /* The single container that slides */
 .form-container {
     position: absolute;
-    top: 0;
-    height: 100%;
+    /* --- CORRECTION START --- */
+    top: 67.65px; /* Adjusted to better match standard navbar height */
+    height: calc(100vh - 58px); /* Adjusts height to fill remaining space */
+    /* --- CORRECTION END --- */
     width: 50%;
-    right: 0; /* Starts on the right side */
+    right: 0;
     background-color: var(--main-bg);
     transition: right 0.7s ease-in-out;
     box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
@@ -44,7 +45,6 @@ body {
     }
 }
 
-/* This class moves the container to the left */
 .form-container.left-panel-active {
     right: 50%;
 }
@@ -69,7 +69,6 @@ body {
     z-index: 1;
 }
 
-/* When active, fade out login and fade in signup */
 .form-container.left-panel-active .login-wrapper {
     opacity: 0;
     z-index: 1;
@@ -79,7 +78,6 @@ body {
     opacity: 1;
     z-index: 2;
 }
-
 
 form {
     width: 70%;
@@ -96,26 +94,38 @@ h2 {
 .form-group {
     width: 100%;
     margin-bottom: 1rem;
-    text-align: left;
+    position: relative;
 }
+
+    .form-group .icon {
+        position: absolute;
+        left: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #aaa;
+    }
 
 input[type="text"],
 input[type="email"],
 input[type="password"] {
     background-color: #f0f0f0;
     border: 1px solid #ddd;
-    padding: 12px 15px;
+    padding: 12px 15px 12px 40px;
     width: 100%;
     border-radius: 8px;
     color: var(--dark-text);
     outline: none;
-    transition: border-color 0.2s;
+    transition: border-color 0.2s, box-shadow 0.2s;
     box-sizing: border-box;
 }
 
 input:focus {
     border-color: var(--primary-red);
 }
+
+    input:focus + .icon {
+        color: var(--primary-red);
+    }
 
 .btn-primary {
     border-radius: 20px;
@@ -143,39 +153,54 @@ input:focus {
     min-height: 20px;
 }
 
-/* Toggle buttons container, positioned inside the sliding container */
+/* --- NEW BUTTON STYLES --- */
 .toggle-buttons {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    z-index: 1000;
+    /* This container is now just for logical grouping, not positioning */
 }
 
 .toggle-btn {
-    background: none;
+    position: absolute;
+    top: 30px;
+    background-color: var(--primary-red); /* Red background */
+    color: #FFFFFF; /* White text */
     border: none;
-    color: var(--dark-text);
+    padding: 10px 20px;
     cursor: pointer;
     font-family: 'Poppins', sans-serif;
     font-weight: 600;
-    font-size: 1rem;
-    padding: 5px;
-    transition: color 0.2s;
+    font-size: 0.9rem;
+    z-index: 1000;
+    transition: background-color 0.2s ease, opacity 0.5s ease;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    white-space: nowrap;
 }
 
     .toggle-btn:hover {
-        color: var(--primary-red);
+        background-color: var(--dark-text); /* Black hover */
     }
 
-#signInBtn {
-    display: none; /* Initially hidden */
+#signUpBtn {
+    /* Attached to the left side of the container */
+    right: 100%;
+    border-radius: 20px 0 0 20px;
 }
 
-/* Show/hide the correct button */
+#signInBtn {
+    /* Attached to the right side of the container */
+    left: 100%;
+    border-radius: 0 20px 20px 0;
+    /* Initially hidden */
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Show/hide the correct button on toggle */
 .form-container.left-panel-active #signUpBtn {
-    display: none;
+    opacity: 0;
+    pointer-events: none;
 }
 
 .form-container.left-panel-active #signInBtn {
-    display: inline-block;
+    opacity: 1;
+    pointer-events: auto;
 }
