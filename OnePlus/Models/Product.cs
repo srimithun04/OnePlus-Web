@@ -1,5 +1,6 @@
-﻿
-// --- Product.cs ---
+﻿// --- Product.cs ---
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -10,7 +11,7 @@ namespace OnePlus.Models
     public class Product
     {
         [Key]
-        public int ProductId { get; set; } // Changed from Guid to int
+        public int ProductId { get; set; }
 
         [Required]
         [StringLength(255)]
@@ -41,6 +42,16 @@ namespace OnePlus.Models
         public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
 
         public virtual ICollection<ProductCategory> ProductCategories { get; set; } = new List<ProductCategory>();
+
+        // --- Start of Properties Moved from ViewModel ---
+        [NotMapped]
+        public IEnumerable<SelectListItem> CategoryList { get; set; } = new List<SelectListItem>();
+
+        [NotMapped]
+        public int[] SelectedCategoryIds { get; set; } = Array.Empty<int>();
+
+        [NotMapped]
+        public IFormFile? ImageFile { get; set; }
+        // --- End of Properties Moved from ViewModel ---
     }
 }
-

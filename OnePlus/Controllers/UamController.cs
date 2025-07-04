@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using OnePlus.Auth;
-using System.Threading.Tasks;
 using OnePlus.Models;
 using OnePlus.Services;
+using System.Threading.Tasks;
+using OnePlus.Auth; // Required for the AuthorizeRole attribute
 
 namespace OnePlus.Controllers
 {
@@ -15,31 +15,26 @@ namespace OnePlus.Controllers
             _uamService = uamService;
         }
 
-        // --- NEW PROFILE ACTION ---
+        // --- PROFILE ACTION ---
         [HttpGet]
         [AuthorizeRole(UserRole.Admin, UserRole.Client)]
         public async Task<IActionResult> Profile()
         {
-            // Check if the UserId is present in the session
             var userIdString = HttpContext.Session.GetString("UserId");
             if (string.IsNullOrEmpty(userIdString))
             {
-                // If not logged in, redirect to the login page
                 return RedirectToAction("Login");
             }
 
             if (int.TryParse(userIdString, out int userId))
             {
-                // Fetch the user from the database using the new service method
                 var user = await _uamService.GetUserByIdAsync(userId);
                 if (user != null)
                 {
-                    // If user is found, pass the user object to the view
                     return View(user);
                 }
             }
 
-            // If user is not found or ID is invalid, redirect to login
             return RedirectToAction("Login");
         }
 
@@ -58,7 +53,7 @@ namespace OnePlus.Controllers
             if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
             {
                 ModelState.AddModelError(string.Empty, "Email and password are required.");
-                return View();
+                return View("Login");
             }
 
             var user = await _uamService.LoginAsync(email, password);
@@ -69,13 +64,14 @@ namespace OnePlus.Controllers
                 HttpContext.Session.SetString("UserRole", user.Role.ToString());
                 HttpContext.Session.SetString("UserName", user.FirstName);
 
+                // --- UPDATED REDIRECTION LOGIC ---
                 return user.Role == UserRole.Admin
-                    ? RedirectToAction("Dashboard", "Admin")
-                    : RedirectToAction("Index", "Home");
+                    ? RedirectToAction("Index", "Product") // Redirects admin to the product list
+                    : RedirectToAction("Index", "Home");   // Redirects client to the home page
             }
 
             ModelState.AddModelError(string.Empty, "Invalid login attempt.");
-            return View();
+            return View("Login");
         }
 
         // --- SIGNUP ACTIONS ---

@@ -1,0 +1,117 @@
+﻿@model OnePlus.Models.Product
+
+@{
+    ViewData["Title"] = Model.ProductId == 0 ? "Add Product" : "Edit Product";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/Product/Upsert.css" />
+}
+
+<div class="container upsert-container my-5">
+    <h2 class="page-title">@ViewData["Title"]</h2>
+    <hr />
+    <form method="post" asp-action="Upsert" enctype="multipart/form-data">
+        <input type="hidden" asp-for="ProductId" />
+        <input type="hidden" asp-for="ImageUrl" />
+        @Html.AntiForgeryToken()
+        <div asp-validation-summary="All" class="text-danger"></div>
+
+        <div class="row">
+            <div class="col-md-8">
+                <div class="form-group">
+                    <label asp-for="Name"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Description"></label>
+                    <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 form-group">
+                        <label asp-for="Price"></label>
+                        <input asp-for="Price" class="form-control" />
+                        <span asp-validation-for="Price" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-4 form-group">
+                        <label asp-for="Sku"></label>
+                        <input asp-for="Sku" class="form-control" />
+                        <span asp-validation-for="Sku" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-4 form-group">
+                        <label asp-for="StockQuantity"></label>
+                        <input asp-for="StockQuantity" class="form-control" />
+                        <span asp-validation-for="StockQuantity" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Specifications"></label>
+                    <textarea asp-for="Specifications" class="form-control" rows="3" placeholder="Enter The specifications"></textarea>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="form-group">
+                    <label>Categories</label>
+                    <div class="category-wrapper">
+                        <select asp-for="SelectedCategoryIds" asp-items="Model.CategoryList" class="form-control" multiple style="height: 150px;"></select>
+                        <small class="form-text text-muted">Hold Ctrl (or Cmd on Mac) to select multiple categories.</small>
+                    </div>
+                    <div class="mt-2">
+                        <button type="button" id="addCategoryBtn" class="btn btn-sm btn-outline-success"><i class="fas fa-plus"></i> Add</button>
+                        <button type="button" id="deleteCategoryBtn" class="btn btn-sm btn-outline-danger"><i class="fas fa-trash-alt"></i> Delete Selected</button>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ImageFile"></label>
+                    <input asp-for="ImageFile" type="file" class="form-control" />
+                </div>
+                @if (Model.ImageUrl != null)
+                {
+                    <img src="@Model.ImageUrl" class="upsert-img-preview" />
+                }
+            </div>
+        </div>
+        <div class="form-group mt-4">
+            <button type="submit" class="btn btn-danger">Save Product</button>
+            <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+        </div>
+    </form>
+</div>
+
+@* --- START: NEW CATEGORY MODAL HTML --- *@
+<div id="categoryModal" class="modal-overlay">
+    <div class="modal-content">
+        <span class="close-btn">&times;</span>
+
+        @* View 1: The Form for adding a category *@
+        <div id="categoryFormView">
+            <h3>Add New Category</h3>
+            <div class="form-group-modal">
+                <label for="newCategoryName">Category Name</label>
+                <input type="text" id="newCategoryName" class="form-control" placeholder="e.g., Accessories" />
+                <span id="categoryError" class="text-danger-modal"></span>
+            </div>
+            <div class="modal-actions">
+                <button type="button" id="cancelCategoryBtn" class="btn btn-secondary-modal">Cancel</button>
+                <button type="button" id="saveCategoryBtn" class="btn-primary-modal">Save Category</button>
+            </div>
+        </div>
+
+        @* View 2: The success/error message view (initially hidden) *@
+        <div id="categoryMessageView" style="display: none;">
+            <div id="messageIcon"></div>
+            <h3 id="messageText"></h3>
+            <div class="modal-actions" style="justify-content: center;">
+                <button type="button" id="messageOkBtn" class="btn-primary-modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+@* --- END: NEW CATEGORY MODAL HTML --- *@
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/js/Product/Upsert.js"></script>
+}

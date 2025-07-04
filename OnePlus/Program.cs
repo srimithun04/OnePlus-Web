@@ -9,7 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 // 1. Register your custom services for dependency injection
 builder.Services.AddScoped<IUamService, UamService>();
 builder.Services.AddHttpContextAccessor(); // Often needed for session access in services
-
+builder.Services.AddScoped<IProductService, ProductService>();
 // 2. Configure the DbContext with the connection string from appsettings.json
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<AppDbContext>(options =>

@@ -1,0 +1,199 @@
+﻿:root {
+    --primary-red: #810100;
+    --dark-text: #1B1717;
+    --hover-red: #630000;
+}
+
+.upsert-container {
+    padding: 30px;
+    background-color: #fdfdfd;
+    border-radius: 8px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+}
+
+.page-title {
+    color: var(--dark-text);
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+}
+
+.upsert-container label {
+    font-weight: 600;
+    color: #555;
+    margin-bottom: 5px;
+}
+
+.upsert-img-preview {
+    width: 100%;
+    border-radius: 8px;
+    margin-top: 15px;
+    border: 1px solid #ddd;
+}
+
+.btn-submit { /* This class is not used in the final HTML but keeping it in case */
+    background-color: var(--primary-red);
+    color: white;
+    padding: 10px 30px;
+    border: none;
+    border-radius: 5px;
+}
+
+.add-category-link {
+    font-size: 0.9rem;
+    color: var(--primary-red);
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 5px;
+}
+
+    .add-category-link:hover {
+        text-decoration: underline;
+    }
+
+/* --- START: MODAL STYLES --- */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: none; /* Initially hidden */
+    justify-content: center;
+    align-items: center;
+    z-index: 1050;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+    .modal-overlay.show {
+        display: flex;
+        opacity: 1;
+    }
+
+.modal-content {
+    background: #FFFFFF;
+    padding: 30px 40px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    width: 90%;
+    max-width: 450px;
+    position: relative;
+    transform: scale(0.9);
+    opacity: 0;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    text-align: center;
+}
+
+.modal-overlay.show .modal-content {
+    transform: scale(1);
+    opacity: 1;
+}
+
+.modal-content h3 {
+    font-weight: 600;
+    color: var(--dark-text);
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 25px;
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 28px;
+    font-weight: 300;
+    color: #888;
+    cursor: pointer;
+    line-height: 1;
+}
+
+    .close-btn:hover {
+        color: var(--dark-text);
+    }
+
+.form-group-modal {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+    .form-group-modal label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: #555;
+    }
+
+    .form-group-modal .form-control {
+        background-color: #f0f0f0;
+        border: 1px solid #ddd;
+        padding: 12px 15px;
+        width: 100%;
+        border-radius: 8px;
+        box-sizing: border-box;
+    }
+
+        .form-group-modal .form-control:focus {
+            border-color: var(--primary-red);
+            box-shadow: 0 0 0 2px rgba(129, 1, 0, 0.2);
+            outline: none;
+        }
+
+.text-danger-modal {
+    color: var(--primary-red);
+    font-size: 0.8rem;
+    display: block;
+    min-height: 20px;
+    margin-top: 5px;
+    text-align: left;
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 30px;
+}
+
+    .modal-actions button {
+        border: none;
+        padding: 10px 25px;
+        border-radius: 20px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background-color 0.2s;
+    }
+
+.btn-primary-modal {
+    background-color: var(--primary-red);
+    color: white;
+}
+
+    .btn-primary-modal:hover {
+        background-color: var(--hover-red);
+    }
+
+.btn-secondary-modal {
+    background-color: #6c757d;
+    color: white;
+}
+
+    .btn-secondary-modal:hover {
+        background-color: #5a6268;
+    }
+
+/* New Styles for Message View */
+#messageIcon {
+    font-size: 50px;
+    line-height: 1;
+    margin-bottom: 20px;
+}
+
+    #messageIcon.success {
+        color: #28a745; /* Green */
+    }
+
+    #messageIcon.error {
+        color: #dc3545; /* Red */
+    }
