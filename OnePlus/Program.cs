@@ -10,6 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddScoped<IUamService, UamService>();
 builder.Services.AddHttpContextAccessor(); // Often needed for session access in services
 builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<IHomeService, HomeService>();
 // 2. Configure the DbContext with the connection string from appsettings.json
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<AppDbContext>(options =>

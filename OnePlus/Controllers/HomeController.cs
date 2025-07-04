@@ -1,36 +1,32 @@
-using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using OnePlus.Models;
+using OnePlus.Services;
+using System.Threading.Tasks;
 
 namespace OnePlus.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly IHomeService _homeService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(IHomeService homeService)
         {
-            _logger = logger;
-        }
-
-        public IActionResult Index()
-        {
-            return View();
+            _homeService = homeService;
         }
 
-        public IActionResult Privacy()
+        public async Task<IActionResult> Index()
         {
-            return View();
-        }
-        public IActionResult AccessDenied()
-        {
-            return View();
+            // Fetch products and categories separately
+            var products = await _homeService.GetProductsForHomeAsync();
+            var categories = await _homeService.GetCategoriesForHomeAsync();
+
+            // Pass categories to the view using ViewData
+            ViewData["Categories"] = categories;
+
+            // Pass the list of products as the main model
+            return View(products);
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
+        public IActionResult About() => View();
+        public IActionResult Contact() => View();
     }
 }

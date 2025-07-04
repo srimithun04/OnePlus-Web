@@ -1,0 +1,278 @@
+﻿:root {
+    --primary-red: #810100;
+    --dark-text: #1B1717;
+    --light-text: #f8f9fa;
+    --hover-red: #630000;
+    --border-color: #eee;
+}
+
+/* --- Hero Section --- */
+.hero-section {
+    position: relative; /* Required for video positioning */
+    overflow: hidden; /* Hides parts of the video that go outside the section */
+    height: 85vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 0 20px;
+}
+
+#hero-video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: -2; /* Places it behind the overlay and content */
+}
+
+.video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4); /* Dark overlay for text readability */
+    z-index: -1; /* Sits on top of video but behind content */
+}
+
+.hero-content {
+    position: relative; /* Ensures it stays on top */
+    z-index: 1;
+    color: var(--light-text); /* Change text color to white for visibility */
+}
+
+    .hero-content h1 {
+        font-size: 5rem;
+        font-weight: 800;
+        letter-spacing: -2px;
+        margin-bottom: 1rem;
+        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+    }
+
+    .hero-content p {
+        font-size: 1.2rem;
+        max-width: 600px;
+        margin: 0 auto 2rem auto;
+        color: var(--light-text);
+        text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+    }
+
+.hero-buttons .btn {
+    margin: 0 10px;
+    padding: 12px 30px;
+    border-radius: 30px;
+    font-weight: 600;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+}
+
+.btn-primary-hero {
+    background-color: var(--primary-red);
+    color: var(--light-text);
+    border: 2px solid var(--primary-red);
+}
+
+    .btn-primary-hero:hover {
+        background-color: var(--hover-red);
+        border-color: var(--hover-red);
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        color:white;
+    }
+
+.btn-secondary-hero {
+    background-color: transparent;
+    color: var(--light-text);
+    border: 2px solid var(--light-text);
+}
+
+    .btn-secondary-hero:hover {
+        background-color: var(--light-text);
+        color: var(--dark-text);
+        transform: translateY(-3px);
+    }
+
+/* --- Ticker Section --- */
+.ticker-wrap {
+    width: 100%;
+    overflow: hidden;
+    background-color: var(--dark-text);
+    color: var(--light-text);
+    padding: 15px 0;
+    white-space: nowrap;
+}
+
+.ticker {
+    display: inline-block;
+    padding-left: 100%;
+    animation: ticker-animation 20s linear infinite;
+}
+
+    .ticker span {
+        display: inline-block;
+        padding: 0 2rem;
+        font-size: 1.1rem;
+        font-weight: 600;
+        letter-spacing: 1px;
+    }
+
+.ticker-icon {
+    color: var(--primary-red);
+}
+
+@keyframes ticker-animation {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+/* --- Collection Section --- */
+.collection-section {
+    padding: 80px 0;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+    .section-header h2 {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: var(--dark-text);
+    }
+
+    .section-header p {
+        color: #666;
+    }
+
+/* Category Filters */
+.category-filters {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.filter-btn {
+    background: none;
+    border: 1px solid #ddd;
+    padding: 8px 20px;
+    margin: 5px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+    .filter-btn.active,
+    .filter-btn:hover {
+        background-color: var(--primary-red);
+        color: white;
+        border-color: var(--primary-red);
+    }
+
+/* Product Grid */
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+.product-card {
+    background: white;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: all 0.4s ease;
+    cursor: pointer;
+}
+
+    .product-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+    }
+
+.product-image-container {
+    background-color: #f5f5f7;
+    padding: 20px;
+}
+
+.product-image {
+    width: 100%;
+    height: 250px;
+    object-fit: contain;
+    transition: transform 0.4s ease;
+}
+
+.product-card:hover .product-image {
+    transform: scale(1.05);
+}
+
+.product-info {
+    padding: 20px;
+    text-align: center;
+}
+
+.product-name {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--dark-text);
+    margin-bottom: 10px;
+}
+
+.product-price {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--primary-red);
+    margin-bottom: 15px;
+}
+
+.product-actions .btn-add-cart {
+    background-color: var(--dark-text);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    display: inline-block;
+    transition: background-color 0.3s;
+}
+
+    .product-actions .btn-add-cart:hover {
+        background-color: var(--primary-red);
+    }
+
+/* --- ANIMATIONS --- */
+.animate-on-load,
+.animate-on-scroll {
+    opacity: 0;
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.animate-on-load {
+    transform: translateY(30px);
+}
+
+.animate-on-scroll {
+    transform: translateY(50px);
+}
+
+.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.delay-1 {
+    transition-delay: 0.2s;
+}
+
+.delay-2 {
+    transition-delay: 0.4s;
+}

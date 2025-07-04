@@ -1,8 +1,85 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model IEnumerable<OnePlus.Models.Product>
+
+@{
+    ViewData["Title"] = "Home";
+    // Get categories from ViewData
+    var categories = ViewData["Categories"] as IEnumerable<OnePlus.Models.Category>;
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+@section Styles {
+    <link rel="stylesheet" href="~/css/Home/Home.css" asp-append-version="true" />
+}
+
+<section class="hero-section">
+    <div class="video-overlay"></div>
+    <video playsinline autoplay muted loop id="hero-video">
+        @* IMPORTANT: Replace this path with the path to your video file in wwwroot/videos/ *@
+        <source src="~/css/OnePlus 13s _ Stronger. Smarter. Smaller._2K.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+
+    <div class="hero-content">
+        <h1 class="animate-on-load">ONEPLUS UNIVERSE</h1>
+        <p class="animate-on-load delay-1">Discover our latest collection of cutting-edge technology. Performance and style, perfected.</p>
+        <div class="hero-buttons animate-on-load delay-2">
+            <a href="#collection" class="btn btn-primary-hero">Explore Products</a>
+            <a href="#" class="btn btn-secondary-hero">Latest Deals</a>
+        </div>
+    </div>
+</section>
+
+<div class="ticker-wrap">
+    <div class="ticker">
+        <span>NEVER SETTLE</span>
+        <span class="ticker-icon">✦</span>
+        <span>FLAGSHIP PERFORMANCE</span>
+        <span class="ticker-icon">✦</span>
+        <span>PREMIUM DESIGN</span>
+        <span class="ticker-icon">✦</span>
+        <span>BURDENLESS EXPERIENCE</span>
+        <span class="ticker-icon">✦</span>
+    </div>
 </div>
+
+<section id="collection" class="collection-section">
+    <div class="container">
+        <div class="section-header animate-on-scroll">
+            <h2>OUR COLLECTION</h2>
+            <p>Explore our wide range of products, from flagship phones to premium audio.</p>
+        </div>
+
+        <div class="category-filters animate-on-scroll">
+            <button class="filter-btn active" data-filter="all">All</button>
+            @if (categories != null)
+            {
+                @foreach (var category in categories)
+                {
+                    <button class="filter-btn" data-filter="@category.CategoryId">@category.Name</button>
+                }
+            }
+        </div>
+
+        <div class="product-grid">
+            @foreach (var product in Model)
+            {
+                var categoryIds = string.Join(" ", product.ProductCategories.Select(pc => pc.CategoryId));
+                <div class="product-card animate-on-scroll" data-categories="@categoryIds">
+                    <div class="product-image-container">
+                        <img src="@(product.ImageUrl ?? "/images/placeholder.png")" alt="@product.Name" class="product-image" />
+                    </div>
+                    <div class="product-info">
+                        <h5 class="product-name">@product.Name</h5>
+                        <p class="product-price">@product.Price.ToString("C")</p>
+                        <div class="product-actions">
+                            <a href="#" class="btn btn-add-cart">Add to Cart</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <script src="~/js/Home/Home.js" asp-append-version="true"></script>
+}
