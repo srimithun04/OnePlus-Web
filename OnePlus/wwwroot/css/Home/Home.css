@@ -8,42 +8,107 @@
 
 /* --- Hero Section --- */
 .hero-section {
-    position: relative; /* Required for video positioning */
-    overflow: hidden; /* Hides parts of the video that go outside the section */
+    position: relative;
     height: 85vh;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: 0 20px;
+    overflow: hidden;
 }
 
-#hero-video {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    min-width: 100%;
-    min-height: 100%;
-    width: auto;
-    height: auto;
-    z-index: -2; /* Places it behind the overlay and content */
-}
-
-.video-overlay {
+.hero-background {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.4); /* Dark overlay for text readability */
-    z-index: -1; /* Sits on top of video but behind content */
+    z-index: -1; /* Places the entire background container behind the hero-content */
+    background-color: #000; /* Fallback color if images don't load */
+}
+
+.hero-slider-track {
+    width: 500%; /* 100% * 5 slides */
+    height: 100%;
+    display: flex;
+    animation: slideAnimation 25s ease-in-out infinite;
+}
+
+.hero-section:hover .hero-slider-track {
+    animation-play-state: paused;
+}
+
+.hero-slide {
+    width: 20%; /* 100% / 5 slides */
+    height: 100%;
+}
+
+    .hero-slide img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+@keyframes slideAnimation {
+    0% {
+        transform: translateX(0%);
+    }
+
+    18% {
+        transform: translateX(0%);
+    }
+    /* Stay on slide 1 */
+    20% {
+        transform: translateX(-20%);
+    }
+    /* Move to slide 2 */
+    38% {
+        transform: translateX(-20%);
+    }
+    /* Stay on slide 2 */
+    40% {
+        transform: translateX(-40%);
+    }
+    /* Move to slide 3 */
+    58% {
+        transform: translateX(-40%);
+    }
+    /* Stay on slide 3 */
+    60% {
+        transform: translateX(-60%);
+    }
+    /* Move to slide 4 */
+    78% {
+        transform: translateX(-60%);
+    }
+    /* Stay on slide 4 */
+    80% {
+        transform: translateX(-80%);
+    }
+    /* Move to slide 5 */
+    98% {
+        transform: translateX(-80%);
+    }
+    /* Stay on slide 5 */
+    100% {
+        transform: translateX(0%);
+    }
+    /* Instantly back to slide 1 for loop */
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
 .hero-content {
-    position: relative; /* Ensures it stays on top */
-    z-index: 1;
-    color: var(--light-text); /* Change text color to white for visibility */
+    position: relative;
+    z-index: 1; /* Ensures content is on top of the background container */
+    color: var(--light-text);
 }
 
     .hero-content h1 {
@@ -82,7 +147,7 @@
         border-color: var(--hover-red);
         transform: translateY(-3px);
         box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-        color:white;
+        color: white;
     }
 
 .btn-secondary-hero {
@@ -134,6 +199,90 @@
         transform: translateX(-100%);
     }
 }
+
+/* --- Dynamic Duo Section --- */
+.dynamic-duo-section {
+    padding: 80px 0;
+    background-color: #f8f9fa;
+}
+
+.duo-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+.duo-card {
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+    transition: all 0.4s ease;
+}
+
+    .duo-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+    }
+
+    .duo-card.text-card {
+        padding: 40px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .duo-card.image-card img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+.text-card h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #666;
+    margin-bottom: 0.5rem;
+}
+
+.text-card h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--dark-text);
+    margin-bottom: 1.5rem;
+}
+
+.btn-check-now {
+    display: inline-block;
+    background: none;
+    border: 2px solid var(--dark-text);
+    color: var(--dark-text);
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+    .btn-check-now:hover {
+        background-color: var(--dark-text);
+        color: white;
+    }
+
+.video-promo-container {
+    width: 100%;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    transition: transform 0.5s ease-out;
+}
+
+.promo-video {
+    width: 100%;
+    display: block;
+}
+
 
 /* --- Collection Section --- */
 .collection-section {

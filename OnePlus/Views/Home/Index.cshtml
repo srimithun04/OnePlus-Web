@@ -11,13 +11,29 @@
 }
 
 <section class="hero-section">
-    <div class="video-overlay"></div>
-    <video playsinline autoplay muted loop id="hero-video">
-        @* IMPORTANT: Replace this path with the path to your video file in wwwroot/videos/ *@
-        <source src="~/css/OnePlus 13s _ Stronger. Smarter. Smaller._2K.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-    </video>
+    <!-- The background elements are now wrapped in their own container for proper layering -->
+    <div class="hero-background">
+        <div class="hero-slider-track">
+            <div class="hero-slide">
+                <img src="~/images/Home/Banner1.jpg" alt="Phone 1" />
+            </div>
+            <div class="hero-slide">
+                <img src="~/images/Home/Banner2.jpg" alt="Headphones" />
+            </div>
+            <div class="hero-slide">
+                <img src="~/images/Home/Banner3.jpg "alt="Gaming Setup" />
+            </div>
+            <div class="hero-slide">
+                <img src="~/images/Home/Banner4.jpg" alt="Smartwatch" />
+            </div>
+            <div class="hero-slide">
+                <img src="~/images/Home/Banner5.jpg" alt="Phone 2" />
+            </div>
+        </div>
+        <div class="hero-overlay"></div>
+    </div>
 
+    <!-- The main content sits on top -->
     <div class="hero-content">
         <h1 class="animate-on-load">ONEPLUS UNIVERSE</h1>
         <p class="animate-on-load delay-1">Discover our latest collection of cutting-edge technology. Performance and style, perfected.</p>
@@ -27,6 +43,7 @@
         </div>
     </div>
 </section>
+
 
 <div class="ticker-wrap">
     <div class="ticker">
@@ -40,6 +57,37 @@
         <span class="ticker-icon">✦</span>
     </div>
 </div>
+
+<!-- Newly Added Section -->
+<section class="dynamic-duo-section">
+    <div class="container">
+        <div class="duo-grid">
+            <div class="duo-card text-card animate-on-scroll">
+                <h3>Discover the Future</h3>
+                <h2>Flagship Mobile Collection</h2>
+                <a href="#" class="btn-check-now">Check Now</a>
+            </div>
+            <div class="duo-card image-card animate-on-scroll">
+                <img src="~/images/Home/Dynamic1.jpg" alt="Stylish Woman">
+            </div>
+            <div class="duo-card image-card animate-on-scroll">
+                <img src="~/images/Home/Dynamic2.jpg" alt="Stylish Man">
+            </div>
+            <div class="duo-card text-card animate-on-scroll">
+                <h3>Tech Redefined</h3>
+                <h2>Next-Gen Smartwatches</h2>
+                <a href="#" class="btn-check-now">Check Now</a>
+            </div>
+        </div>
+        <div class="video-promo-container animate-on-scroll">
+            <video playsinline autoplay muted loop class="promo-video">
+                <source src="~/video/OnePlus 13s _ Stronger. Smarter. Smaller._2K.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+    </div>
+</section>
+
 
 <section id="collection" class="collection-section">
     <div class="container">
