@@ -1,0 +1,131 @@
+﻿/* Reusing the same variables for consistency */
+:root {
+    --primary-red: #810100;
+    --dark-text: #1B1717;
+    --light-text: #f8f9fa;
+    --hover-red: #630000;
+    --border-color: #eee;
+}
+
+/* Basic body styles for the new page */
+body {
+    background-color: #fff;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.all-products-container {
+    padding-top: 40px; /* Provides some space from the top of the page */
+    padding-bottom: 40px;
+}
+
+/* Copied styles from Home.css to ensure consistency */
+.collection-section {
+    padding: 80px 0;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+    .section-header h2 {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: var(--dark-text);
+    }
+
+    .section-header p {
+        color: #666;
+    }
+
+.category-filters {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.filter-btn {
+    background: none;
+    border: 1px solid #ddd;
+    padding: 8px 20px;
+    margin: 5px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+    .filter-btn.active,
+    .filter-btn:hover {
+        background-color: var(--primary-red);
+        color: white;
+        border-color: var(--primary-red);
+    }
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+.product-card {
+    background: white;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    overflow: hidden;
+    transition: all 0.4s ease;
+    cursor: pointer;
+}
+
+    .product-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+    }
+
+.product-image-container {
+    background-color: #f5f5f7;
+    padding: 20px;
+}
+
+.product-image {
+    width: 100%;
+    height: 250px;
+    object-fit: contain;
+    transition: transform 0.4s ease;
+}
+
+.product-card:hover .product-image {
+    transform: scale(1.05);
+}
+
+.product-info {
+    padding: 20px;
+    text-align: center;
+}
+
+.product-name {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--dark-text);
+    margin-bottom: 10px;
+}
+
+.product-price {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--primary-red);
+    margin-bottom: 15px;
+}
+
+.product-actions .btn-add-cart {
+    background-color: var(--dark-text);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    display: inline-block;
+    transition: background-color 0.3s;
+}
+
+    .product-actions .btn-add-cart:hover {
+        background-color: var(--primary-red);
+    }

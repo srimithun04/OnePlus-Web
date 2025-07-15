@@ -1,0 +1,436 @@
+﻿/* --- wwwroot/css/Cart/Cart.css (White Theme) --- */
+
+/*------------------------------------*\
+  #ROOT & VARIABLES
+\*------------------------------------*/
+:root {
+    --color-primary: #f40612; /* Vibrant OnePlus red */
+    --color-primary-dark: #d1000b; /* For hover states */
+    --color-background: #f5f5f7; /* Light grey page background */
+    --color-surface: #ffffff; /* White for cards and sections */
+    --color-text-primary: #1d1d1f; /* Strong black for primary text */
+    --color-text-secondary: #6e6e73; /* Softer grey for secondary text */
+    --color-border: #d2d2d7;
+    --border-radius: 8px;
+    --transition-speed: 0.3s;
+}
+
+/*------------------------------------*\
+  #GENERAL & PAGE LAYOUT
+\*------------------------------------*/
+body {
+    background-color: var(--color-background);
+    color: var(--color-text-primary);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+.cart-page-container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.cart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: 20px;
+}
+
+    .cart-header h1 {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: var(--color-text-primary);
+        margin: 0;
+    }
+
+.continue-shopping {
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: color var(--transition-speed) ease;
+}
+
+    .continue-shopping:hover {
+        color: var(--color-primary);
+    }
+
+.cart-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 30px;
+    align-items: flex-start;
+}
+
+/* Responsive layout for smaller screens */
+@media (max-width: 992px) {
+    .cart-content {
+        grid-template-columns: 1fr;
+    }
+}
+
+/*------------------------------------*\
+  #CART ITEMS TABLE
+\*------------------------------------*/
+.cart-items {
+    background: var(--color-surface);
+    border-radius: var(--border-radius);
+    padding: 20px;
+    border: 1px solid var(--color-border);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.cart-table-header {
+    display: grid;
+    grid-template-columns: 3fr 1fr 1.5fr 1fr 0.5fr;
+    padding: 0 15px;
+    color: var(--color-text-secondary);
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+
+.col-qty, .col-total {
+    text-align: center;
+}
+
+.cart-item-row {
+    display: grid;
+    grid-template-columns: 3fr 1fr 1.5fr 1fr 0.5fr;
+    align-items: center;
+    gap: 15px;
+    padding: 15px;
+    border-bottom: 1px solid #e5e5e5;
+    transition: background-color var(--transition-speed) ease;
+}
+
+    .cart-item-row:last-child {
+        border-bottom: none;
+    }
+
+    .cart-item-row:hover {
+        background-color: #fafafa;
+    }
+
+.col-product {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.cart-product-image {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 4px;
+    border: 1px solid var(--color-border);
+}
+
+.product-name {
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: var(--color-text-primary);
+}
+
+.product-sku, .product-color {
+    font-size: 0.85rem;
+    color: var(--color-text-secondary);
+    margin: 0;
+}
+
+.col-price, .item-total {
+    font-weight: 500;
+}
+
+/*------------------------------------*\
+  #QUANTITY CONTROLS
+\*------------------------------------*/
+.quantity-control {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #f1f1f1;
+    border-radius: 20px;
+    border: 1px solid var(--color-border);
+}
+
+.quantity-minus, .quantity-plus {
+    background: transparent;
+    border: none;
+    color: var(--color-text-primary);
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 5px 15px;
+    transition: color var(--transition-speed) ease;
+}
+
+    .quantity-minus:hover, .quantity-plus:hover {
+        color: var(--color-primary);
+    }
+
+.quantity-input {
+    width: 40px;
+    text-align: center;
+    background: transparent;
+    border: none;
+    color: var(--color-text-primary);
+    font-weight: 600;
+    font-size: 1rem;
+    -moz-appearance: textfield;
+}
+
+    .quantity-input::-webkit-outer-spin-button,
+    .quantity-input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+/*------------------------------------*\
+  #ACTIONS & REMOVE BUTTON
+\*------------------------------------*/
+.col-actions {
+    text-align: center;
+}
+
+.btn-remove-item {
+    background: none;
+    border: none;
+    color: var(--color-text-secondary);
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: color var(--transition-speed) ease, transform var(--transition-speed) ease;
+}
+
+    .btn-remove-item:hover {
+        color: var(--color-primary);
+        transform: scale(1.2);
+    }
+
+
+/*------------------------------------*\
+  #CART SUMMARY & CHECKOUT
+\*------------------------------------*/
+.cart-summary {
+    background: var(--color-surface);
+    border-radius: var(--border-radius);
+    padding: 25px;
+    position: sticky;
+    top: 20px;
+    border: 1px solid var(--color-border);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.shipping-mode-selection h3 {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+}
+
+.radio-option {
+    display: block;
+    background: #f9f9f9;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    border: 1px solid var(--color-border);
+    transition: all var(--transition-speed) ease;
+}
+
+    .radio-option:hover {
+        border-color: var(--color-primary);
+        background-color: var(--color-surface);
+    }
+
+    .radio-option input[type="radio"] {
+        display: none;
+    }
+
+        .radio-option input[type="radio"]:checked + .custom-radio {
+            border-color: var(--color-primary);
+            background: var(--color-primary);
+        }
+
+.custom-radio {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    border: 2px solid #b5b5b5;
+    border-radius: 50%;
+    margin-right: 10px;
+    vertical-align: middle;
+    transition: all var(--transition-speed) ease;
+}
+
+.order-summary-details {
+    margin: 30px 0;
+}
+
+.summary-line {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    font-size: 0.9rem;
+    color: var(--color-text-secondary);
+}
+
+    .summary-line span:last-child {
+        font-weight: 600;
+        color: var(--color-text-primary);
+    }
+
+.total-line {
+    font-size: 1.2rem;
+    font-weight: 700;
+    padding-top: 15px;
+    border-top: 1px solid var(--color-border);
+    color: var(--color-text-primary);
+}
+
+.btn-checkout, .btn-clear-cart {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all var(--transition-speed) ease;
+}
+
+.btn-checkout {
+    background-color: var(--color-primary);
+    color: #ffffff;
+    border: none;
+    margin-bottom: 10px;
+}
+
+    .btn-checkout:hover {
+        background-color: var(--color-primary-dark);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(244, 6, 18, 0.2);
+    }
+
+.btn-clear-cart {
+    background: transparent;
+    border: 1px solid var(--color-text-secondary);
+    color: var(--color-text-secondary);
+}
+
+    .btn-clear-cart:hover {
+        background-color: var(--color-primary);
+        border-color: var(--color-primary);
+        color: #ffffff;
+    }
+
+
+/*------------------------------------*\
+  #EMPTY CART & MESSAGES
+\*------------------------------------*/
+.empty-cart-message {
+    text-align: center;
+    padding: 80px 20px;
+    background: var(--color-surface);
+    border-radius: var(--border-radius);
+    border: 1px solid var(--color-border);
+}
+
+    .empty-cart-message p {
+        font-size: 1.2rem;
+        color: var(--color-text-secondary);
+        margin-bottom: 25px;
+    }
+
+.btn-primary-hero {
+    background-color: var(--color-primary);
+    color: white;
+    padding: 12px 30px;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: 600;
+    transition: all var(--transition-speed) ease;
+}
+
+    .btn-primary-hero:hover {
+        background-color: var(--color-primary-dark);
+        transform: translateY(-2px);
+    }
+
+/*------------------------------------*\
+  #SWEETALERT2 CUSTOM STYLING
+\*------------------------------------*/
+.swal2-popup.swal2-custom-popup {
+    background-color: var(--color-surface) !important;
+    border-radius: var(--border-radius) !important;
+}
+
+    .swal2-popup.swal2-custom-popup .swal2-title,
+    .swal2-popup.swal2-custom-popup .swal2-html-container {
+        color: var(--color-text-primary) !important;
+    }
+
+
+/*------------------------------------*\
+  #ANIMATIONS
+\*------------------------------------*/
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideOutLeftAndFade {
+    from {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    to {
+        opacity: 0;
+        transform: translateX(-50px);
+        height: 0;
+        padding: 0 15px;
+        margin-bottom: 0;
+    }
+}
+
+/* Initial load animations */
+.animate-fade-in {
+    animation: fadeIn 0.5s ease-out forwards;
+}
+
+.animate-slide-in {
+    animation: slideInRight 0.6s ease-out forwards;
+}
+
+/* Item removal animation */
+.cart-item-row.removing {
+    animation: slideOutLeftAndFade 0.5s ease-out forwards; /* 0.5s = 500ms */
+    pointer-events: none;
+}

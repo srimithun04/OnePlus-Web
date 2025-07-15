@@ -23,12 +23,12 @@
     left: 0;
     width: 100%;
     height: 100%;
-    z-index: -1; /* Places the entire background container behind the hero-content */
-    background-color: #000; /* Fallback color if images don't load */
+    z-index: -1;
+    background-color: #000;
 }
 
 .hero-slider-track {
-    width: 500%; /* 100% * 5 slides */
+    width: 500%;
     height: 100%;
     display: flex;
     animation: slideAnimation 25s ease-in-out infinite;
@@ -39,7 +39,7 @@
 }
 
 .hero-slide {
-    width: 20%; /* 100% / 5 slides */
+    width: 20%;
     height: 100%;
 }
 
@@ -57,43 +57,42 @@
     18% {
         transform: translateX(0%);
     }
-    /* Stay on slide 1 */
+
     20% {
         transform: translateX(-20%);
     }
-    /* Move to slide 2 */
+
     38% {
         transform: translateX(-20%);
     }
-    /* Stay on slide 2 */
+
     40% {
         transform: translateX(-40%);
     }
-    /* Move to slide 3 */
+
     58% {
         transform: translateX(-40%);
     }
-    /* Stay on slide 3 */
+
     60% {
         transform: translateX(-60%);
     }
-    /* Move to slide 4 */
+
     78% {
         transform: translateX(-60%);
     }
-    /* Stay on slide 4 */
+
     80% {
         transform: translateX(-80%);
     }
-    /* Move to slide 5 */
+
     98% {
         transform: translateX(-80%);
     }
-    /* Stay on slide 5 */
+
     100% {
         transform: translateX(0%);
     }
-    /* Instantly back to slide 1 for loop */
 }
 
 .hero-overlay {
@@ -107,7 +106,7 @@
 
 .hero-content {
     position: relative;
-    z-index: 1; /* Ensures content is on top of the background container */
+    z-index: 1;
     color: var(--light-text);
 }
 
@@ -291,44 +290,98 @@
 
 .section-header {
     text-align: center;
-    margin-bottom: 50px;
+    margin-bottom: 20px; /* Reduced margin */
+    position: relative;
 }
 
     .section-header h2 {
         font-size: 2.5rem;
         font-weight: 700;
         color: var(--dark-text);
+        margin-bottom: 0.5rem;
     }
 
     .section-header p {
         color: #666;
+        margin-bottom: 30px;
     }
 
-/* Category Filters */
-.category-filters {
-    text-align: center;
-    margin-bottom: 40px;
+.view-all-link {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    color: var(--primary-red);
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    padding: 8px 12px;
+    border-radius: 20px;
 }
 
-.filter-btn {
-    background: none;
+    .view-all-link:hover {
+        color: var(--hover-red);
+        text-decoration: underline;
+    }
+
+/* --- Horizontal Product Scroller --- */
+.product-scroller-container {
+    position: relative;
+}
+
+.product-scroller {
+    display: flex;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding: 20px 10px;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+    .product-scroller::-webkit-scrollbar {
+        display: none;
+    }
+
+    .product-scroller .product-card {
+        flex: 0 0 290px;
+        margin: 0 10px;
+    }
+
+.scroll-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    background-color: rgba(255, 255, 255, 0.95);
     border: 1px solid #ddd;
-    padding: 8px 20px;
-    margin: 5px;
-    border-radius: 20px;
+    color: var(--dark-text);
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
     cursor: pointer;
-    font-weight: 500;
+    font-size: 24px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     transition: all 0.3s ease;
 }
 
-    .filter-btn.active,
-    .filter-btn:hover {
+    .scroll-btn:hover {
         background-color: var(--primary-red);
         color: white;
         border-color: var(--primary-red);
     }
 
-/* Product Grid */
+    .scroll-btn.left {
+        left: -22px;
+    }
+
+    .scroll-btn.right {
+        right: -22px;
+    }
+
+/* --- Product Grid (For All_Products page) --- */
 .product-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));

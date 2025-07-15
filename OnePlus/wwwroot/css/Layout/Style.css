@@ -68,3 +68,36 @@ body {
     margin: 0;
     max-width: 100%;
 }
+
+/* --- NEW ADDITION: Cart Icon Styles --- */
+.cart-icon-container {
+    position: relative;
+    margin-right: 1.5rem; /* Space between cart and profile icon */
+}
+
+.cart-icon {
+    font-size: 1.5rem;
+    color: #333;
+    transition: color 0.2s;
+}
+
+.cart-icon-container .nav-link:hover .cart-icon {
+    color: #810100;
+}
+
+.cart-item-count {
+    position: absolute;
+    top: -5px;
+    right: -10px;
+    background-color: #810100; /* Primary Red */
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 600;
+    border-radius: 50%;
+    padding: 3px 7px;
+    min-width: 20px;
+    text-align: center;
+    line-height: 1;
+    border: 1px solid white; /* Small border for visibility */
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}

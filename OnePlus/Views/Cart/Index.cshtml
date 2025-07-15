@@ -1,0 +1,109 @@
+﻿@model IEnumerable<OnePlus.Models.Cart>
+
+@{
+    ViewData["Title"] = "My Cart";
+    decimal cartTotal = (decimal)ViewData["CartTotal"];
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/Cart/Cart.css" asp-append-version="true" />
+}
+
+<div class="cart-page-container">
+    <div class="cart-header">
+        <h1>My Cart</h1>
+        <a href="@Url.Action("Index", "Home")" class="continue-shopping">
+            <i class="fas fa-arrow-left"></i> Continue Shopping
+        </a>
+    </div>
+
+    @if (!Model.Any())
+    {
+        <div class="empty-cart-message animate-fade-in">
+            <p>Your cart is empty. Start adding some awesome OnePlus products!</p>
+            <a href="@Url.Action("All_Products", "Home")" class="btn btn-primary-hero">Shop Now</a>
+        </div>
+    }
+    else
+    {
+        <div class="cart-content">
+            <div class="cart-items">
+                <div class="cart-table-header">
+                    <div class="col-product">PRODUCT</div>
+                    <div class="col-price">PRICE</div>
+                    <div class="col-qty">QTY</div>
+                    <div class="col-total">TOTAL</div>
+                    <div class="col-actions"></div>
+                </div>
+
+                @foreach (var item in Model)
+                {
+                    <div class="cart-item-row animate-fade-in" data-cart-item-id="@item.CartItemId" data-product-price="@item.Product.Price">
+                        <div class="col-product">
+                            <img src="@(item.Product.ImageUrl ?? "/images/placeholder.png")" alt="@item.Product.Name" class="cart-product-image" />
+                            <div class="product-details">
+                                <h5 class="product-name">@item.Product.Name</h5>
+                                <p class="product-sku">#@item.Product.Sku</p>
+                                @* You can add other product details like color, size etc. here if available *@
+                                <p class="product-color">Color: N/A</p> @* Placeholder *@
+                            </div>
+                        </div>
+                        <div class="col-price">@item.Product.Price.ToString("C")</div>
+                        <div class="col-qty">
+                            <div class="quantity-control">
+                                <button class="quantity-minus" data-cart-item-id="@item.CartItemId">-</button>
+                                <input type="number" class="quantity-input" value="@item.Quantity" min="1" data-cart-item-id="@item.CartItemId" />
+                                <button class="quantity-plus" data-cart-item-id="@item.CartItemId">+</button>
+                            </div>
+                        </div>
+                        <div class="col-total item-total">@((item.Product.Price * item.Quantity).ToString("C"))</div>
+                        <div class="col-actions">
+                            <button type="button" class="btn-remove-item" data-cart-item-id="@item.CartItemId">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <div class="cart-summary animate-slide-in">
+                <div class="shipping-mode-selection">
+                    <h3>Choose shipping mode:</h3>
+                    <label class="radio-option">
+                        <input type="radio" name="shipping-mode" value="store-pickup" checked>
+                        <span class="custom-radio"></span>
+                        Store pickup <span class="delivery-time">(in 20 min)</span> • <span class="free-shipping">FREE</span>
+                    </label>
+                    <label class="radio-option">
+                        <input type="radio" name="shipping-mode" value="delivery">
+                        <span class="custom-radio"></span>
+                        Delivery at home <span class="delivery-time">(Under 2 - 4 day)</span> • <span class="delivery-cost">9.00€</span>
+                        <p class="delivery-address">At 45 Glenridge Ave, Brooklyn, NY 11220</p>
+                    </label>
+                </div>
+
+                <div class="order-summary-details">
+                    <div class="summary-line">
+                        <span>SUBTOTAL TTC</span>
+                        <span id="subtotal-ttc">@cartTotal.ToString("C")</span>
+                    </div>
+                    <div class="summary-line">
+                        <span>SHIPPING</span>
+                        <span id="shipping-cost">Free</span> @* This will be updated by JS *@
+                    </div>
+                    <div class="summary-line total-line">
+                        <span>TOTAL</span>
+                        <span id="overall-total">@cartTotal.ToString("C")</span>
+                    </div>
+                </div>
+
+                <button class="btn-checkout">Checkout <span id="checkout-button-total">@cartTotal.ToString("C")</span></button>
+                <button class="btn-clear-cart">Clear Cart</button>
+            </div>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script> <script src="~/js/Cart/Cart.js" asp-append-version="true"></script>
+}

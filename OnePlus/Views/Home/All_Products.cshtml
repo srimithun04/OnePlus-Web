@@ -1,0 +1,55 @@
+﻿@model IEnumerable<OnePlus.Models.Product>
+
+@{
+    ViewData["Title"] = "All Products";
+    var categories = ViewData["Categories"] as IEnumerable<OnePlus.Models.Category>;
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/Home/All_Products..css" asp-append-version="true" />
+}
+
+<div class="all-products-container">
+    <section id="collection" class="collection-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>ALL PRODUCTS</h2>
+                <p>Explore our wide range of products, from flagship phones to premium audio.</p>
+            </div>
+
+            <div class="category-filters">
+                <button class="filter-btn active" data-filter="all">All</button>
+                @if (categories != null)
+                {
+                    @foreach (var category in categories)
+                    {
+                        <button class="filter-btn" data-filter="@category.CategoryId">@category.Name</button>
+                    }
+                }
+            </div>
+
+            <div class="product-grid">
+                @foreach (var product in Model)
+                {
+                    var categoryIds = string.Join(" ", product.ProductCategories.Select(pc => pc.CategoryId));
+                    <div class="product-card" data-categories="@categoryIds">
+                        <div class="product-image-container">
+                            <img src="@(product.ImageUrl ?? "/images/placeholder.png")" alt="@product.Name" class="product-image" />
+                        </div>
+                        <div class="product-info">
+                            <h5 class="product-name">@product.Name</h5>
+                            <p class="product-price">@product.Price.ToString("C")</p>
+                            <div class="product-actions">
+                                <a href="#" class="btn btn-add-cart" data-product-id="@product.ProductId">Add to Cart</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </section>
+</div>
+
+@section Scripts {
+    <script src="~/js/Home/Home.js" asp-append-version="true"></script>
+}

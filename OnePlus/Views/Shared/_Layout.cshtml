@@ -45,6 +45,15 @@
                         </li>
                     </ul>
                     <ul class="navbar-nav ms-auto">
+                        @if (HttpContextAccessor.HttpContext.Session.GetString("UserId") != null && HttpContextAccessor.HttpContext.Session.GetString("UserRole") != "Admin")
+                        {
+                            <li class="nav-item cart-icon-container">
+                                <a class="nav-link" asp-area="" asp-controller="Cart" asp-action="Index">
+                                    <i class="fas fa-shopping-cart cart-icon"></i>
+                                    <span class="cart-item-count" id="cartItemCount">0</span> @* Placeholder for count *@
+                                </a>
+                            </li>
+                        }
                         <li class="nav-item dropdown profile-dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="fas fa-user-circle profile-icon"></i>
@@ -85,5 +94,42 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
 
     @await RenderSectionAsync("Scripts", required: false)
+
+    <script>
+        // JavaScript to fetch and update cart item count
+        $(document).ready(function () {
+            function updateCartCount() {
+                // Only fetch if the cart icon container is visible (user is logged in and not admin)
+                if ($('.cart-icon-container').length > 0) {
+                    $.ajax({
+                        url: '/Cart/GetCartItemCount', // This action needs to be created in CartController
+                        method: 'GET',
+                        success: function (data) {
+                            if (data.success) {
+                                $('#cartItemCount').text(data.count);
+                            }
+                        },
+                        error: function (xhr, status, error) {
+                            console.error("Error fetching cart count:", error);
+                        }
+                    });
+                }
+            }
+
+            // Update cart count on page load
+            updateCartCount();
+
+            // Intercept add-to-cart clicks to update count dynamically
+            $(document).on('click', '.btn-add-cart', function() {
+                // You might want to add a small delay here to ensure the item is added to DB first
+                setTimeout(updateCartCount, 500);
+            });
+
+            // Consider updating the cart count after successful removal from cart page as well
+            $(document).on('click', '.btn-remove-item, .btn-clear-cart', function() {
+                 setTimeout(updateCartCount, 500);
+            });
+        });
+    </script>
 </body>
 </html>

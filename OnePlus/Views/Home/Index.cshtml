@@ -21,7 +21,7 @@
                 <img src="~/images/Home/Banner2.jpg" alt="Headphones" />
             </div>
             <div class="hero-slide">
-                <img src="~/images/Home/Banner3.jpg "alt="Gaming Setup" />
+                <img src="~/images/Home/Banner3.jpg " alt="Gaming Setup" />
             </div>
             <div class="hero-slide">
                 <img src="~/images/Home/Banner4.jpg" alt="Smartwatch" />
@@ -93,37 +93,32 @@
     <div class="container">
         <div class="section-header animate-on-scroll">
             <h2>OUR COLLECTION</h2>
-            <p>Explore our wide range of products, from flagship phones to premium audio.</p>
+            <a asp-controller="Home" asp-action="All_Products" class="view-all-link">View All -></a>
+            <p>A curated selection of our top products.</p>
         </div>
 
-        <div class="category-filters animate-on-scroll">
-            <button class="filter-btn active" data-filter="all">All</button>
-            @if (categories != null)
-            {
-                @foreach (var category in categories)
+        <!-- The product grid is replaced by a horizontal scroller -->
+        <div class="product-scroller-container animate-on-scroll">
+            <button class="scroll-btn left" id="scroll-left">‹</button>
+            <div class="product-scroller">
+                @foreach (var product in Model.Take(10))
                 {
-                    <button class="filter-btn" data-filter="@category.CategoryId">@category.Name</button>
-                }
-            }
-        </div>
-
-        <div class="product-grid">
-            @foreach (var product in Model)
-            {
-                var categoryIds = string.Join(" ", product.ProductCategories.Select(pc => pc.CategoryId));
-                <div class="product-card animate-on-scroll" data-categories="@categoryIds">
-                    <div class="product-image-container">
-                        <img src="@(product.ImageUrl ?? "/images/placeholder.png")" alt="@product.Name" class="product-image" />
-                    </div>
-                    <div class="product-info">
-                        <h5 class="product-name">@product.Name</h5>
-                        <p class="product-price">@product.Price.ToString("C")</p>
-                        <div class="product-actions">
-                            <a href="#" class="btn btn-add-cart">Add to Cart</a>
+                    var categoryIds = string.Join(" ", product.ProductCategories.Select(pc => pc.CategoryId));
+                    <div class="product-card" data-categories="@categoryIds">
+                        <div class="product-image-container">
+                            <img src="@(product.ImageUrl ?? "/images/placeholder.png")" alt="@product.Name" class="product-image" />
+                        </div>
+                        <div class="product-info">
+                            <h5 class="product-name">@product.Name</h5>
+                            <p class="product-price">@product.Price.ToString("C")</p>
+                            <div class="product-actions">
+                                <a href="#" class="btn btn-add-cart" data-product-id="@product.ProductId">Add to Cart</a>
+                            </div>
                         </div>
                     </div>
-                </div>
-            }
+                }
+            </div>
+            <button class="scroll-btn right" id="scroll-right">›</button>
         </div>
     </div>
 </section>

@@ -23,8 +23,24 @@ namespace OnePlus.Controllers
             ViewData["Categories"] = categories;
 
             // Pass the list of products as the main model
+            // The view will be responsible for taking the top 10
             return View(products);
         }
+
+        // New action for the "All Products" page
+        public async Task<IActionResult> All_Products()
+        {
+            ViewData["Title"] = "All Products";
+
+            // Fetch all products and categories for the dedicated page
+            var allProducts = await _homeService.GetProductsForHomeAsync(); // Assuming this service method gets all products
+            var categories = await _homeService.GetCategoriesForHomeAsync();
+
+            ViewData["Categories"] = categories;
+
+            return View(allProducts);
+        }
+
 
         public IActionResult About() => View();
         public IActionResult Contact() => View();
