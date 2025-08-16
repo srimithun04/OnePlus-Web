@@ -4,12 +4,12 @@
   #ROOT & VARIABLES
 \*------------------------------------*/
 :root {
-    --color-primary: #f40612; /* Vibrant OnePlus red */
-    --color-primary-dark: #d1000b; /* For hover states */
-    --color-background: #f5f5f7; /* Light grey page background */
-    --color-surface: #ffffff; /* White for cards and sections */
-    --color-text-primary: #1d1d1f; /* Strong black for primary text */
-    --color-text-secondary: #6e6e73; /* Softer grey for secondary text */
+    --color-primary: #f40612;
+    --color-primary-dark: #d1000b;
+    --color-background: #f5f5f7;
+    --color-surface: #ffffff;
+    --color-text-primary: #1d1d1f;
+    --color-text-secondary: #6e6e73;
     --color-border: #d2d2d7;
     --border-radius: 8px;
     --transition-speed: 0.3s;
@@ -98,7 +98,8 @@ body {
     margin-bottom: 10px;
 }
 
-.col-qty, .col-total {
+.col-qty,
+.col-total {
     text-align: center;
 }
 
@@ -140,13 +141,15 @@ body {
     color: var(--color-text-primary);
 }
 
-.product-sku, .product-color {
+.product-sku,
+.product-color {
     font-size: 0.85rem;
     color: var(--color-text-secondary);
     margin: 0;
 }
 
-.col-price, .item-total {
+.col-price,
+.item-total {
     font-weight: 500;
 }
 
@@ -162,7 +165,8 @@ body {
     border: 1px solid var(--color-border);
 }
 
-.quantity-minus, .quantity-plus {
+.quantity-minus,
+.quantity-plus {
     background: transparent;
     border: none;
     color: var(--color-text-primary);
@@ -172,7 +176,8 @@ body {
     transition: color var(--transition-speed) ease;
 }
 
-    .quantity-minus:hover, .quantity-plus:hover {
+    .quantity-minus:hover,
+    .quantity-plus:hover {
         color: var(--color-primary);
     }
 
@@ -213,7 +218,6 @@ body {
         color: var(--color-primary);
         transform: scale(1.2);
     }
-
 
 /*------------------------------------*\
   #CART SUMMARY & CHECKOUT
@@ -294,7 +298,8 @@ body {
     color: var(--color-text-primary);
 }
 
-.btn-checkout, .btn-clear-cart {
+.btn-checkout,
+.btn-clear-cart {
     display: block;
     width: 100%;
     padding: 15px;
@@ -330,7 +335,6 @@ body {
         border-color: var(--color-primary);
         color: #ffffff;
     }
-
 
 /*------------------------------------*\
   #EMPTY CART & MESSAGES
@@ -376,7 +380,6 @@ body {
     .swal2-popup.swal2-custom-popup .swal2-html-container {
         color: var(--color-text-primary) !important;
     }
-
 
 /*------------------------------------*\
   #ANIMATIONS
@@ -431,6 +434,6 @@ body {
 
 /* Item removal animation */
 .cart-item-row.removing {
-    animation: slideOutLeftAndFade 0.5s ease-out forwards; /* 0.5s = 500ms */
+    animation: slideOutLeftAndFade 0.5s ease-out forwards;
     pointer-events: none;
 }

@@ -1,0 +1,167 @@
+﻿/* === NEW & IMPROVED All_Products.css === */
+/* This file uses modern CSS for a robust, responsive, and animated layout. */
+
+:root {
+    --primary-red: #810100;
+    --dark-text: #1B1717;
+    --light-text: #f8f9fa;
+    --hover-red: #630000;
+    --border-color: #e9ecef;
+    --surface-color: #f8f9fa;
+}
+
+body {
+    background-color: #ffffff;
+    font-family: 'Poppins', sans-serif; /* Using a more modern font */
+}
+
+.all-products-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+.collection-section {
+    padding: 40px 0;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+    .section-header h2 {
+        font-size: 2.8rem;
+        font-weight: 700;
+        color: var(--dark-text);
+        margin-bottom: 8px;
+    }
+
+    .section-header p {
+        font-size: 1.1rem;
+        color: #6c757d;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+.category-filters {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 50px;
+}
+
+.filter-btn {
+    background: none;
+    border: 1px solid #ced4da;
+    padding: 10px 25px;
+    border-radius: 50px; /* Pill shape */
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+    .filter-btn.active,
+    .filter-btn:hover {
+        background-color: var(--primary-red);
+        color: white;
+        border-color: var(--primary-red);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(129, 1, 0, 0.2);
+    }
+
+.product-grid {
+    display: grid;
+    /* This creates a responsive grid that adjusts the number of columns automatically */
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+.product-card {
+    background: white;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    overflow: hidden;
+    display: flex; /* Use flexbox for better internal alignment */
+    flex-direction: column;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    /* This transition is key for the filtering animation */
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+    .product-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 12px 25px rgba(0,0,0,0.1);
+    }
+
+    /* NEW: Class for hiding/showing items during filtering */
+    .product-card.hidden {
+        opacity: 0;
+        transform: scale(0.95);
+        pointer-events: none;
+        /* This ensures the hidden items don't take up space */
+        height: 0;
+        padding: 0;
+        margin: 0;
+        border: none;
+    }
+
+
+.product-image-container {
+    background-color: var(--surface-color);
+    padding: 20px;
+}
+
+.product-image {
+    width: 100%;
+    height: 250px;
+    object-fit: contain;
+    transition: transform 0.4s ease;
+}
+
+.product-card:hover .product-image {
+    transform: scale(1.08);
+}
+
+.product-info {
+    padding: 25px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1; /* Allows the info section to fill available space */
+}
+
+.product-name {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--dark-text);
+    margin-bottom: 10px;
+}
+
+.product-price {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--primary-red);
+    margin-bottom: 20px;
+}
+
+.product-actions {
+    margin-top: auto; /* Pushes the button to the bottom */
+}
+
+.btn-add-cart {
+    background-color: var(--dark-text);
+    color: white;
+    padding: 12px 25px;
+    border-radius: 8px;
+    text-decoration: none;
+    display: inline-block;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+    .btn-add-cart:hover {
+        background-color: var(--primary-red);
+        transform: scale(1.05);
+    }

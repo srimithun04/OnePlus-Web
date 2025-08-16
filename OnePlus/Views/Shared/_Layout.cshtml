@@ -23,17 +23,13 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav mx-auto">
-
-                        @* --- MODIFIED HOME LINK --- *@
                         <li class="nav-item">
                             @if (HttpContextAccessor.HttpContext.Session.GetString("UserRole") == "Admin")
                             {
-                                // If user is Admin, Home link goes to the Product management page
                                 <a class="nav-link" asp-area="" asp-controller="Product" asp-action="Index">Home</a>
                             }
                             else
                             {
-                                // For all other users, Home link goes to the default homepage
                                 <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                             }
                         </li>
@@ -50,7 +46,7 @@
                             <li class="nav-item cart-icon-container">
                                 <a class="nav-link" asp-area="" asp-controller="Cart" asp-action="Index">
                                     <i class="fas fa-shopping-cart cart-icon"></i>
-                                    <span class="cart-item-count" id="cartItemCount">0</span> @* Placeholder for count *@
+                                    <span class="cart-item-count" id="cartItemCount">0</span>
                                 </a>
                             </li>
                         }
@@ -61,7 +57,6 @@
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                 @if (HttpContextAccessor.HttpContext.Session.GetString("UserId") != null)
                                 {
-                                    // --- USER IS LOGGED IN ---
                                     <li><a class="dropdown-item" asp-controller="Uam" asp-action="Profile">My Profile</a></li>
                                     <li><hr class="dropdown-divider"></li>
                                     <li>
@@ -72,7 +67,6 @@
                                 }
                                 else
                                 {
-                                    // --- USER IS NOT LOGGED IN ---
                                     <li><a class="dropdown-item" asp-controller="Uam" asp-action="Login">Sign In</a></li>
                                 }
                             </ul>
@@ -95,40 +89,65 @@
 
     @await RenderSectionAsync("Scripts", required: false)
 
+    <!-- ===================================================================== -->
+    <!-- === REWRITTEN & CORRECTED SCRIPT FOR GLOBAL CART COUNT MANAGEMENT === -->
+    <!-- ===================================================================== -->
     <script>
-        // JavaScript to fetch and update cart item count
-        $(document).ready(function () {
-            function updateCartCount() {
-                // Only fetch if the cart icon container is visible (user is logged in and not admin)
-                if ($('.cart-icon-container').length > 0) {
-                    $.ajax({
-                        url: '/Cart/GetCartItemCount', // This action needs to be created in CartController
-                        method: 'GET',
-                        success: function (data) {
-                            if (data.success) {
-                                $('#cartItemCount').text(data.count);
-                            }
-                        },
-                        error: function (xhr, status, error) {
-                            console.error("Error fetching cart count:", error);
-                        }
-                    });
+        document.addEventListener('DOMContentLoaded', function () {
+            const cartCountElement = document.getElementById('cartItemCount');
+
+            // This function is responsible for updating the cart count display.
+            // It also handles showing/hiding the badge based on the count.
+            function updateCartCountDisplay(count) {
+                if (cartCountElement) {
+                    // Ensure count is a number
+                    const numericCount = parseInt(count) || 0;
+                    cartCountElement.textContent = numericCount;
+
+                    // Pro Tip: Hide the badge when the cart is empty for a cleaner UI.
+                    if (numericCount > 0) {
+                        cartCountElement.style.display = 'block';
+                    } else {
+                        cartCountElement.style.display = 'none';
+                    }
                 }
             }
 
-            // Update cart count on page load
-            updateCartCount();
+            // This function fetches the latest cart count from our API.
+            async function fetchAndUpdateCartCount() {
+                // Only run this if the cart icon is actually on the page.
+                if (!cartCountElement) return;
 
-            // Intercept add-to-cart clicks to update count dynamically
-            $(document).on('click', '.btn-add-cart', function() {
-                // You might want to add a small delay here to ensure the item is added to DB first
-                setTimeout(updateCartCount, 500);
+                try {
+                    // We use the new '/Cart/Count' endpoint which is clean and dedicated.
+                    const response = await fetch('/Cart/Count');
+                    if (!response.ok) {
+                        throw new Error(`Network response was not ok: ${response.statusText}`);
+                    }
+                    const data = await response.json();
+                    if (data.success) {
+                        updateCartCountDisplay(data.count);
+                    }
+                } catch (error) {
+                    console.error("Error fetching cart count:", error);
+                    // In case of error, we ensure the count is hidden.
+                    updateCartCountDisplay(0);
+                }
+            }
+
+            // --- EVENT LISTENER ---
+            // This is the modern way to handle updates. Instead of listening for specific clicks,
+            // we listen for a custom event. The Home.js and Cart.js scripts will 'dispatch' this
+            // event whenever they successfully modify the cart.
+            document.addEventListener('cartUpdated', function (event) {
+                const newCount = event.detail.newItemCount;
+                updateCartCountDisplay(newCount);
             });
 
-            // Consider updating the cart count after successful removal from cart page as well
-            $(document).on('click', '.btn-remove-item, .btn-clear-cart', function() {
-                 setTimeout(updateCartCount, 500);
-            });
+
+            // --- INITIAL LOAD ---
+            // Fetch the count as soon as the page loads to ensure it's always accurate.
+            fetchAndUpdateCartCount();
         });
     </script>
 </body>

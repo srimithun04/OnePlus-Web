@@ -8,6 +8,8 @@
 
 @section Styles {
     <link rel="stylesheet" href="~/css/Home/Home.css" asp-append-version="true" />
+    <!-- Pro Tip: Add SweetAlert2 here so the Home.js script can use it for notifications -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 }
 
 <section class="hero-section">
@@ -110,8 +112,9 @@
                         </div>
                         <div class="product-info">
                             <h5 class="product-name">@product.Name</h5>
-                            <p class="product-price">@product.Price.ToString("C")</p>
+                            <p class="product-price">@product.Price.ToString("C", new System.Globalization.CultureInfo("en-IN"))</p>
                             <div class="product-actions">
+                                <!-- The data-product-id is crucial for the JavaScript to work -->
                                 <a href="#" class="btn btn-add-cart" data-product-id="@product.ProductId">Add to Cart</a>
                             </div>
                         </div>
@@ -124,5 +127,8 @@
 </section>
 
 @section Scripts {
+    <!-- SweetAlert2 for notifications -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- The updated Home.js script -->
     <script src="~/js/Home/Home.js" asp-append-version="true"></script>
 }

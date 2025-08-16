@@ -6,7 +6,10 @@
 }
 
 @section Styles {
-    <link rel="stylesheet" href="~/css/Home/All_Products..css" asp-append-version="true" />
+    <!-- Referencing the new and improved CSS file -->
+    <link rel="stylesheet" href="~/css/Home/All_Products.css" asp-append-version="true" />
+    <!-- SweetAlert2 for beautiful, responsive popups -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 }
 
 <div class="all-products-container">
@@ -38,7 +41,7 @@
                         </div>
                         <div class="product-info">
                             <h5 class="product-name">@product.Name</h5>
-                            <p class="product-price">@product.Price.ToString("C")</p>
+                            <p class="product-price">@product.Price.ToString("C", new System.Globalization.CultureInfo("en-IN"))</p>
                             <div class="product-actions">
                                 <a href="#" class="btn btn-add-cart" data-product-id="@product.ProductId">Add to Cart</a>
                             </div>
@@ -51,5 +54,8 @@
 </div>
 
 @section Scripts {
-    <script src="~/js/Home/Home.js" asp-append-version="true"></script>
+    <!-- SweetAlert2 for notifications -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Referencing its OWN dedicated JavaScript file -->
+    <script src="~/js/Home/All_Products.js" asp-append-version="true"></script>
 }
